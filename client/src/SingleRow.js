@@ -38,7 +38,7 @@ const SingleRow = ({item}) => {
       <span>{item.player}</span>
     </TableCell>
     <TableCell align='center' sx={{fontSize: 12}}>
-      <span>{item.points.date.split(" ")[2]}</span>
+      <span>{item.points.date}</span>
     </TableCell>
     <TableCell align='center' sx={{fontSize: 12}}>
       <>
@@ -75,6 +75,8 @@ const SingleRow = ({item}) => {
         <>
           <span>ETR: {item.assists.projection}</span>
           <br/>
+          <span>AVG: {item.assists.average}</span>
+          <br/>
           <span>DK: {item.assists.line}</span>
           <br/>
           <span>{assistsEdge}%</span>
@@ -92,6 +94,8 @@ const SingleRow = ({item}) => {
         threesValid ?
         <>
           <span>ETR: {item.threes.projection}</span>
+          <br/>
+          <span>AVG: {item.threes.average}</span>
           <br/>
           <span>DK: {item.threes.line}</span>
           <br/>
@@ -111,6 +115,8 @@ const SingleRow = ({item}) => {
         <>
           <span>ETR: {item.rebounds.projection}</span>
           <br/>
+          <span>AVG: {item.rebounds.average}</span>
+          <br/>
           <span>DK: {item.rebounds.line}</span>
           <br/>
           <span>({reboundsEdge}%)</span>
@@ -128,6 +134,8 @@ const SingleRow = ({item}) => {
         turnoversValid ?
         <>
           <span>ETR: {item.turnovers.projection}</span>
+          <br/>
+          <span>AVG: {item.turnovers.average}</span>
           <br/>
           <span>DK: {item.turnovers.line}</span>
           <br/>
@@ -147,6 +155,8 @@ const SingleRow = ({item}) => {
         <>
           <span>ETR: {item.blocks.projection}</span>
           <br/>
+          <span>AVG: {item.blocks.average}</span>
+          <br/>
           <span>DK: {item.blocks.line}</span>
           <br/>
           <span>({blocksEdge}%)</span>
@@ -164,6 +174,8 @@ const SingleRow = ({item}) => {
         stealsValid ?
         <>
           <span>ETR: {item.steals.projection}</span>
+          <br/>
+          <span>AVG: {item.steals.average}</span>
           <br/>
           <span>DK: {item.steals.line}</span>
           <br/>
@@ -183,6 +195,8 @@ const SingleRow = ({item}) => {
         <>
           <span>ETR: {item.blocksNsteals.projection}</span>
           <br/>
+          <span>AVG: {item.blocksNsteals.average}</span>
+          <br/>
           <span>DK: {item.blocksNsteals.line}</span>
           <br/>
           <span>({bsEdge}%)</span>
@@ -200,6 +214,8 @@ const SingleRow = ({item}) => {
         praValid ?
         <>
           <span>ETR: {item.PRA.projection}</span>
+          <br/>
+          <span>AVG: {item.PRA.average}</span>
           <br/>
           <span>DK: {item.PRA.line}</span>
           <br/>
@@ -219,6 +235,8 @@ const SingleRow = ({item}) => {
         <>
           <span>ETR: {item.PR.projection}</span>
           <br/>
+          <span>AVG: {item.PR.average}</span>
+          <br/>
           <span>DK: {item.PR.line}</span>
           <br/>
           <span>({prEdge}%)</span>
@@ -237,6 +255,8 @@ const SingleRow = ({item}) => {
         <>
           <span>ETR: {item.PA.projection}</span>
           <br/>
+          <span>AVG: {item.PA.average}</span>
+          <br/>
           <span>DK: {item.PA.line}</span>
           <br/>
           <span>({paEdge}%)</span>
@@ -254,6 +274,8 @@ const SingleRow = ({item}) => {
         arValid ?
         <>
           <span>ETR: {item.AR.projection}</span>
+          <br/>
+          <span>AVG: {item.AR.average}</span>
           <br/>
           <span>DK: {item.AR.line}</span>
           <br/>
