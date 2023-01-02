@@ -38,7 +38,7 @@ const SingleRow = ({item}) => {
       <span>{item.player}</span>
     </TableCell>
     <TableCell align='center' sx={{fontSize: 12}}>
-      <span>{item.points.date}</span>
+      <span>{item.points.date.split(" ")[2]}</span>
     </TableCell>
     <TableCell align='center' sx={{fontSize: 12}}>
       <>
@@ -55,6 +55,8 @@ const SingleRow = ({item}) => {
         <>
           <span>ETR: {item.points.projection}</span>
           <br/>
+          <span>AVG: {item.points.average}</span>
+          <br/>
           <span>DK: {item.points.line}</span>
           <br/>
           <span>{pointsEdge}%</span>
@@ -64,12 +66,7 @@ const SingleRow = ({item}) => {
           <span style={{color: item.points.projection < item.points.line ? 'blue' : 'black'}}>U: {item.points.underOdds}</span>
         </>
         :
-        <>
-          <span>ETR: {item.points.projection}</span>
-          <br/>
-          <span>N/A</span>
-        </>
-        
+        <span>Line N/A</span>        
       }
     </TableCell>
     <TableCell align='center' sx={{border: Math.abs(assistsEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
@@ -87,11 +84,7 @@ const SingleRow = ({item}) => {
           <span style={{color: item.assists.projection < item.assists.line ? 'blue' : 'black'}}>U: {item.assists.underOdds}</span>
         </>
         :
-        <>
-          <span>ETR: {item.assists.projection}</span>
-          <br/>
-          <span>N/A</span>
-        </>
+        <span>Line N/A</span>
       }
     </TableCell>
     <TableCell align='center' sx={{border: Math.abs(threesEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
@@ -109,11 +102,7 @@ const SingleRow = ({item}) => {
           <span style={{color: item.threes.projection < item.threes.line ? 'blue' : 'black'}}>U: {item.threes.underOdds}</span>
         </>
         :
-        <>
-          <span>ETR: {item.threes.projection}</span>
-          <br/>
-          <span>N/A</span>
-        </>
+        <span>Line N/A</span>
       }
     </TableCell>
     <TableCell align='center' sx={{border: Math.abs(reboundsEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
@@ -131,11 +120,7 @@ const SingleRow = ({item}) => {
           <span style={{color: item.rebounds.projection < item.rebounds.line ? 'blue' : 'black'}}>U: {item.rebounds.underOdds}</span>
         </>
         :
-        <>
-          <span>ETR: {item.rebounds.projection}</span>
-          <br/>
-          <span>N/A</span>
-        </>
+        <span>Line N/A</span>
       }
     </TableCell>
     <TableCell align='center' sx={{border: Math.abs(turnoversEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
@@ -153,11 +138,7 @@ const SingleRow = ({item}) => {
           <span style={{color: item.turnovers.projection < item.turnovers.line ? 'blue' : 'black'}}>U: {item.turnovers.underOdds}</span>
         </>
         :
-        <>
-          <span>ETR: {item.turnovers.projection}</span>
-          <br/>
-          <span>N/A</span>
-        </>
+        <span>Line N/A</span>
       }
     </TableCell>
     <TableCell align='center' sx={{border: Math.abs(blocksEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
@@ -175,11 +156,7 @@ const SingleRow = ({item}) => {
           <span style={{color: item.blocks.projection < item.blocks.line ? 'blue' : 'black'}}>U: {item.blocks.underOdds}</span>
         </>
         :
-        <>
-          <span>ETR: {item.blocks.projection}</span>
-          <br/>
-          <span>N/A</span>
-        </>
+        <span>Line N/A</span>
       }
     </TableCell>
     <TableCell align='center' sx={{border: Math.abs(stealsEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
@@ -197,11 +174,7 @@ const SingleRow = ({item}) => {
           <span style={{color: item.steals.projection < item.steals.line ? 'blue' : 'black'}}>U: {item.steals.underOdds}</span>
         </>
         :
-        <>
-          <span>ETR: {item.steals.projection}</span>
-          <br/>
-          <span>N/A</span>
-        </>
+        <span>Line N/A</span>
       }
     </TableCell>
     <TableCell align='center' sx={{border: Math.abs(bsEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
@@ -219,11 +192,7 @@ const SingleRow = ({item}) => {
           <span style={{color: item.blocksNsteals.projection < item.blocksNsteals.line ? 'blue' : 'black'}}>U: {item.blocksNsteals.underOdds}</span>
         </>
         :
-        <>
-          <span>ETR: {item.blocksNsteals.projection}</span>
-          <br/>
-          <span>N/A</span>
-        </>
+        <span>Line N/A</span>
       }
     </TableCell>
     <TableCell align='center' sx={{border: Math.abs(praEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
@@ -241,11 +210,7 @@ const SingleRow = ({item}) => {
           <span style={{color: item.PRA.projection < item.PRA.line ? 'blue' : 'black'}}>U: {item.PRA.underOdds}</span>
         </>
         :
-        <>
-          <span>ETR: {item.PRA.projection}</span>
-          <br/>
-          <span>N/A</span>
-        </>
+        <span>Line N/A</span>
       }
     </TableCell>
     <TableCell align='center' sx={{border: Math.abs(prEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
@@ -263,11 +228,7 @@ const SingleRow = ({item}) => {
           <span style={{color: item.PR.projection < item.PR.line ? 'blue' : 'black'}}>U: {item.PR.underOdds}</span>
         </>
         :
-        <>
-          <span>ETR: {item.PR.projection}</span>
-          <br/>
-          <span>N/A</span>
-        </>
+        <span>Line N/A</span>
       }
     </TableCell>
     <TableCell align='center' sx={{border: Math.abs(paEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
@@ -285,11 +246,7 @@ const SingleRow = ({item}) => {
           <span style={{color: item.PA.projection < item.PA.line ? 'blue' : 'black'}}>U: {item.PA.underOdds}</span>
         </>
         :
-        <>
-          <span>ETR: {item.PA.projection}</span>
-          <br/>
-          <span>N/A</span>
-        </>
+        <span>Line N/A</span>
       }
     </TableCell>
     <TableCell align='center' sx={{border: Math.abs(arEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
@@ -307,11 +264,7 @@ const SingleRow = ({item}) => {
           <span style={{color: item.AR.projection < item.AR.line ? 'blue' : 'black'}}>U: {item.AR.underOdds}</span>
         </>
         :
-        <>
-          <span>ETR: {item.AR.projection}</span>
-          <br/>
-          <span>N/A</span>
-        </>
+        <span>Line N/A</span>
       }
     </TableCell>
   </TableRow>
