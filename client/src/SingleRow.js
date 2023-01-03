@@ -59,7 +59,7 @@ const SingleRow = ({item}) => {
           <br/>
           <span>DK: {item.points.line}</span>
           <br/>
-          <span>{pointsEdge}%</span>
+          <span>({pointsEdge}%)</span>
           <br/>
           <span style={{color: item.points.projection > item.points.line ? 'blue' : 'black'}}>O: {item.points.overOdds}</span>
           <br/>
@@ -79,7 +79,7 @@ const SingleRow = ({item}) => {
           <br/>
           <span>DK: {item.assists.line}</span>
           <br/>
-          <span>{assistsEdge}%</span>
+          <span>({assistsEdge}%)</span>
           <br/>
           <span style={{color: item.assists.projection > item.assists.line ? 'blue' : 'black'}}>O: {item.assists.overOdds}</span>
           <br/>
