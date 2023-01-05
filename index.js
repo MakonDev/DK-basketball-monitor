@@ -14,6 +14,11 @@ app.get("/api/ping", async(req, res) => {
   res.status(200).json(stuff)
 })
 
+app.get("/api/injury", async(req, res) => {
+  const stuff = await helper.searchInjuryInfoCache()
+  res.status(200).json(stuff)
+})
+
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 })

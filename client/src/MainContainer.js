@@ -14,12 +14,23 @@ import SingleRow from './SingleRow'
 
 const MainContainer = () => {
   const [data, setData] = useState([])
+  const [injuryData, setInjuryData] = useState([])
+
+  useEffect(() => {
+    const fetchTransactionInfo = async () => {
+      const responseInj = await axios.get("/api/injury")
+      setInjuryData(responseInj.data)
+    }
+    fetchTransactionInfo().catch((e) => {
+      console.log(e)
+      console.log("Error fetching data")
+    })
+  },[])
 
   useEffect(() => {
     const fetchTransactionInfo = async () => {
       const response = await axios.get("/api/ping")
       setData(response.data)
-      console.log(response.data)
     }
     fetchTransactionInfo().catch((e) => {
       console.log(e)
@@ -62,7 +73,7 @@ const MainContainer = () => {
                   </TableHead>
                   <TableBody>
                   {(data && data.length !==0) && data.map((item) => (
-                    <SingleRow key={item.player} item={item}/>
+                    <SingleRow key={item.player} item={item} injuryData={injuryData}/>
                   ))}
                 </TableBody> 
                 </Table>

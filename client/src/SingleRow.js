@@ -2,9 +2,12 @@ import React from 'react'
 import { 
   TableRow,
   TableCell,
+  Tooltip,
+  Avatar,
 } from '@mui/material'
 
-const SingleRow = ({item}) => {
+const SingleRow = ({item, injuryData}) => {
+
   const edgeThreshold = 15
   const pointsValid = item.points.line !== -1
   const assistsValid = item.assists.line !== -1
@@ -32,21 +35,68 @@ const SingleRow = ({item}) => {
   const paEdge = item.PA.line !== -1 ? (((item.PA.projection-item.PA.line)/item.PA.line)*100).toFixed(2) : 0
   const arEdge = item.AR.line !== -1 ? (((item.AR.projection-item.AR.line)/item.AR.line)*100).toFixed(2) : 0
 
+  const teamEntry1 = injuryData.find((entry) => entry.team === item.team1)
+  let team1Desc = ""
+  if (teamEntry1) {
+    team1Desc = teamEntry1.description
+  } 
+  const teamEntry2 = injuryData.find((entry) => entry.team === item.team2)
+  let team2Desc = ""
+  if (teamEntry2) {
+    team2Desc = teamEntry2.description
+  } 
+
+  const filteredInjuryTeam = injuryData.filter((team) => team.lineup.includes(item.player))
+  const isStarter = filteredInjuryTeam.length > 0
+
+  let injuryDesignations = []
+  for (const injurySet of injuryData) {
+    const filtered = injurySet.injuries.filter((entry) => entry[0] === item.player)
+    if (filtered.length > 0) {
+      injuryDesignations = filtered[0]
+    }
+  }
+
+  const designation = injuryDesignations.length > 0 ? 
+    (injuryDesignations[1] === "Available" || injuryDesignations[1] === "In" || injuryDesignations[1] === "Not on injury report") ? 'green' 
+      : (injuryDesignations[1] === "Questionable" || injuryDesignations[1] === "Probable" || injuryDesignations[1] === "Doubtful") ? 'orange' 
+        : 'black' 
+      : (injuryDesignations[1] === "Out" || injuryDesignations[1] === "Injured") ? 'red' 
+        : 'black'
+
   return (
   <TableRow>
     <TableCell align='center' sx={{fontSize: 12}}>
-      <span>{item.player}</span>
+      <Tooltip title={injuryDesignations.length > 0 ? injuryDesignations[1] : "Not mentioned"} placement={"top"}>
+        <span style={{color: designation}}>{item.player}</span>
+      </Tooltip>
+      {
+        isStarter  &&
+        <Tooltip title={
+          "Starter"
+        }>
+          <Avatar sx={{ marginLeft: 'auto', marginRight: 'auto', width: 20, height: 20 }} src={'https://tse4.mm.bing.net/th?id=OIP.20NY7KckCi6uATh-pn3EogHaHv'} />
+        </Tooltip>
+      }
     </TableCell>
     <TableCell align='center' sx={{fontSize: 12}}>
       <span>{item.points.date}</span>
     </TableCell>
     <TableCell align='center' sx={{fontSize: 12}}>
       <>
-        <span>{item.team1}</span>
+        <Tooltip placement={"top"} title={team1Desc}>
+          <span>
+            {item.team1}
+          </span>
+        </Tooltip>
         <br/>
         v
         <br/>
-        <span>{item.team2}</span>
+        <Tooltip placement={"bottom"} title={team2Desc}>
+          <span>
+            {item.team2}
+          </span>
+        </Tooltip>
       </>
     </TableCell>
     <TableCell align='center' sx={{border: Math.abs(pointsEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
