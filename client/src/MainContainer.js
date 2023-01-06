@@ -50,8 +50,8 @@ const MainContainer = () => {
         data.length > 0 ?
           <Grid container spacing={2} sx={{width: '100%'}}>
             <Grid item xs={12}>
-              <TableContainer sx={{overflow: 'hidden', backgroundColor: '#f5f5f5', marginBottom: '15px'}} component={Paper}>
-                <Table sx={{height: 'max-content'}} size="small" aria-label="a dense table">
+              <TableContainer sx={{overflow: 'initial', backgroundColor: '#f5f5f5', marginBottom: '15px'}} component={Paper}>
+                <Table stickyHeader sx={{height: 'max-content'}} size="small" aria-label="a dense table">
                   <TableHead>
                     <TableRow>
                       <TableCell align='center' sx={{ width: "5%" }}>Player</TableCell>
