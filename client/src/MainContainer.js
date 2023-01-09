@@ -7,7 +7,11 @@ import {
   TableHead,
   TableRow,
   TableBody,
-  TableCell
+  TableCell,
+  FormControl,
+  MenuItem,
+  InputLabel,
+  Select
 } from '@mui/material'
 import axios from 'axios'
 import SingleRow from './SingleRow'
@@ -15,6 +19,7 @@ import SingleRow from './SingleRow'
 const MainContainer = () => {
   const [data, setData] = useState([])
   const [injuryData, setInjuryData] = useState([])
+  const [selectedTeam, setSelectedTeam] = useState("")
 
   useEffect(() => {
     const fetchTransactionInfo = async () => {
@@ -44,11 +49,47 @@ const MainContainer = () => {
     return () => clearInterval(intervalId)
   },[])
 
+  const handleChange = (event, field) => {
+    setSelectedTeam(event.target.value)
+  }
+
+  const teamOptions = data ? data.map((player) => {
+    return player.team1
+  }) : []
+
+  let unique = [...new Set(teamOptions)];
+
   return (
     <>
       {
         data.length > 0 ?
           <Grid container spacing={2} sx={{width: '100%'}}>
+            <Grid item xs={6} sx={{marginLeft: 'auto', marginRight: 'auto'}}>
+              <FormControl sx={{marginLeft: '20px', paddingRight: '20px', marginTop: '20px'}} fullWidth disabled={data.length === 0}>
+                <InputLabel id="game-select-label">Game</InputLabel>
+                <Select
+                  labelId="game-select-label"
+                  id="game-select"
+                  value={selectedTeam}
+                  label="Game"
+                  name="game"
+                  onChange={handleChange}
+                >
+                  <MenuItem key="blank" value={""}>
+                    
+                  </MenuItem>
+                  {
+                    data && unique.map((chainItem) => {
+                      return (
+                        <MenuItem key={chainItem} value={chainItem}>
+                          {chainItem}
+                        </MenuItem>
+                      )
+                    })
+                  }
+                </Select>
+              </FormControl>
+            </Grid>
             <Grid item xs={12}>
               <TableContainer sx={{overflow: 'initial', backgroundColor: '#f5f5f5', marginBottom: '15px'}} component={Paper}>
                 <Table stickyHeader sx={{height: 'max-content'}} size="small" aria-label="a dense table">
@@ -72,7 +113,13 @@ const MainContainer = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                  {(data && data.length !==0) && data.map((item) => (
+                  {(data && data.length !==0) && data.filter((player) => {
+                    if (selectedTeam === "") {
+                      return true
+                    } else {
+                      return player.team1 === selectedTeam || player.team2 === selectedTeam
+                    }
+                  }).map((item) => (
                     <SingleRow key={item.player} item={item} injuryData={injuryData}/>
                   ))}
                 </TableBody> 
