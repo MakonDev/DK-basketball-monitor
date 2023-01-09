@@ -71,8 +71,8 @@ const MainContainer = () => {
                   labelId="game-select-label"
                   id="game-select"
                   value={selectedTeam}
-                  label="Game"
-                  name="game"
+                  label="Team"
+                  name="team"
                   onChange={handleChange}
                 >
                   <MenuItem key="blank" value={""}>
