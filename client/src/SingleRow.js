@@ -3,7 +3,7 @@ import {
   TableRow,
   TableCell,
   Tooltip,
-  Avatar,
+  Avatar
 } from '@mui/material'
 
 const SingleRow = ({item, injuryData}) => {
@@ -22,18 +22,18 @@ const SingleRow = ({item, injuryData}) => {
   const paValid = item.PA.line !== -1
   const arValid = item.AR.line !== -1
 
-  const pointsEdge = item.points.line !== -1 ? (((item.points.projection-item.points.line)/item.points.line)*100).toFixed(2) : 0
-  const assistsEdge = item.assists.line !== -1 ? (((item.assists.projection-item.assists.line)/item.assists.line)*100).toFixed(2) : 0
-  const threesEdge = item.threes.line !== -1 ? (((item.threes.projection-item.threes.line)/item.threes.line)*100).toFixed(2) : 0
-  const reboundsEdge = item.rebounds.line !== -1 ? (((item.rebounds.projection-item.rebounds.line)/item.rebounds.line)*100).toFixed(2) : 0
-  const turnoversEdge = item.turnovers.line !== -1 ? (((item.turnovers.projection-item.turnovers.line)/item.turnovers.line)*100).toFixed(2) : 0
-  const blocksEdge = item.blocks.line !== -1 ? (((item.blocks.projection-item.blocks.line)/item.blocks.line)*100).toFixed(2) : 0
-  const stealsEdge = item.steals.line !== -1 ? (((item.steals.projection-item.steals.line)/item.steals.line)*100).toFixed(2) : 0
-  const bsEdge = item.blocksNsteals.line !== -1 ? (((item.blocksNsteals.projection-item.blocksNsteals.line)/item.blocksNsteals.line)*100).toFixed(2) : 0
-  const praEdge = item.PRA.line !== -1 ? (((item.PRA.projection-item.PRA.line)/item.PRA.line)*100).toFixed(2) : 0
-  const prEdge = item.PR.line !== -1 ? (((item.PR.projection-item.PR.line)/item.PR.line)*100).toFixed(2) : 0
-  const paEdge = item.PA.line !== -1 ? (((item.PA.projection-item.PA.line)/item.PA.line)*100).toFixed(2) : 0
-  const arEdge = item.AR.line !== -1 ? (((item.AR.projection-item.AR.line)/item.AR.line)*100).toFixed(2) : 0
+  const pointsEdge = item.points.line !== -1 ? item.points.poissonEdge : 0
+  const assistsEdge = item.assists.line !== -1 ? item.assists.poissonEdge : 0
+  const threesEdge = item.threes.line !== -1 ? item.threes.poissonEdge : 0
+  const reboundsEdge = item.rebounds.line !== -1 ? item.rebounds.poissonEdge : 0
+  const turnoversEdge = item.turnovers.line !== -1 ? item.turnovers.poissonEdge : 0
+  const blocksEdge = item.blocks.line !== -1 ? item.blocks.poissonEdge : 0
+  const stealsEdge = item.steals.line !== -1 ? item.steals.poissonEdge : 0
+  const bsEdge = item.blocksNsteals.line !== -1 ? item.blocksNsteals.poissonEdge : 0
+  const praEdge = item.PRA.line !== -1 ? item.PRA.poissonEdge : 0
+  const prEdge = item.PR.line !== -1 ? item.PR.poissonEdge : 0
+  const paEdge = item.PA.line !== -1 ? item.PA.poissonEdge : 0
+  const arEdge = item.AR.line !== -1 ? item.AR.poissonEdge : 0
 
   const teamEntry1 = injuryData.find((entry) => entry.team === item.team1)
   let team1Desc = ""
@@ -99,7 +99,7 @@ const SingleRow = ({item, injuryData}) => {
         </Tooltip>
       </>
     </TableCell>
-    <TableCell align='center' sx={{border: Math.abs(pointsEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
+    <TableCell align='center' sx={{border: pointsEdge >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
       {
         pointsValid ?
         <>
@@ -114,12 +114,17 @@ const SingleRow = ({item, injuryData}) => {
           <span style={{color: item.points.projection > item.points.line ? 'blue' : 'black'}}>O: {item.points.overOdds}</span>
           <br/>
           <span style={{color: item.points.projection < item.points.line ? 'blue' : 'black'}}>U: {item.points.underOdds}</span>
+          <br/>
+          <br/>
+          <span>O: {Math.round(item.points.poissonOverOdds)} ({Math.round(item.points.poissonOverPercentage*100)}%)</span>
+          <br/>
+          <span>U: {Math.round(item.points.poissonUnderOdds)} ({Math.round(item.points.poissonUnderPercentage*100)}%)</span>
         </>
         :
         <span>Line N/A</span>        
       }
     </TableCell>
-    <TableCell align='center' sx={{border: Math.abs(assistsEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
+    <TableCell align='center' sx={{border: assistsEdge >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
       {
         assistsValid ?
         <>
@@ -134,12 +139,17 @@ const SingleRow = ({item, injuryData}) => {
           <span style={{color: item.assists.projection > item.assists.line ? 'blue' : 'black'}}>O: {item.assists.overOdds}</span>
           <br/>
           <span style={{color: item.assists.projection < item.assists.line ? 'blue' : 'black'}}>U: {item.assists.underOdds}</span>
+          <br/>
+          <br/>
+          <span>O: {Math.round(item.assists.poissonOverOdds)} ({Math.round(item.assists.poissonOverPercentage*100)}%)</span>
+          <br/>
+          <span>U: {Math.round(item.assists.poissonUnderOdds)} ({Math.round(item.assists.poissonUnderPercentage*100)}%)</span>
         </>
         :
         <span>Line N/A</span>
       }
     </TableCell>
-    <TableCell align='center' sx={{border: Math.abs(threesEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
+    <TableCell align='center' sx={{border: threesEdge >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
       {
         threesValid ?
         <>
@@ -154,12 +164,17 @@ const SingleRow = ({item, injuryData}) => {
           <span style={{color: item.threes.projection > item.threes.line ? 'blue' : 'black'}}>O: {item.threes.overOdds}</span>
           <br/>
           <span style={{color: item.threes.projection < item.threes.line ? 'blue' : 'black'}}>U: {item.threes.underOdds}</span>
+          <br/>
+          <br/>
+          <span>O: {Math.round(item.threes.poissonOverOdds)} ({Math.round(item.threes.poissonOverPercentage*100)}%)</span>
+          <br/>
+          <span>U: {Math.round(item.threes.poissonUnderOdds)} ({Math.round(item.threes.poissonUnderPercentage*100)}%)</span>
         </>
         :
         <span>Line N/A</span>
       }
     </TableCell>
-    <TableCell align='center' sx={{border: Math.abs(reboundsEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
+    <TableCell align='center' sx={{border: reboundsEdge >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
     {
         reboundsValid ?
         <>
@@ -174,12 +189,17 @@ const SingleRow = ({item, injuryData}) => {
           <span style={{color: item.rebounds.projection > item.rebounds.line ? 'blue' : 'black'}}>O: {item.rebounds.overOdds}</span>
           <br/>
           <span style={{color: item.rebounds.projection < item.rebounds.line ? 'blue' : 'black'}}>U: {item.rebounds.underOdds}</span>
+          <br/>
+          <br/>
+          <span>O: {Math.round(item.rebounds.poissonOverOdds)} ({Math.round(item.rebounds.poissonOverPercentage*100)}%)</span>
+          <br/>
+          <span>U: {Math.round(item.rebounds.poissonUnderOdds)} ({Math.round(item.rebounds.poissonUnderPercentage*100)}%)</span>
         </>
         :
         <span>Line N/A</span>
       }
     </TableCell>
-    <TableCell align='center' sx={{border: Math.abs(turnoversEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
+    <TableCell align='center' sx={{border: turnoversEdge >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
       {
         turnoversValid ?
         <>
@@ -194,12 +214,17 @@ const SingleRow = ({item, injuryData}) => {
           <span style={{color: item.turnovers.projection > item.turnovers.line ? 'blue' : 'black'}}>O: {item.turnovers.overOdds}</span>
           <br/>
           <span style={{color: item.turnovers.projection < item.turnovers.line ? 'blue' : 'black'}}>U: {item.turnovers.underOdds}</span>
+          <br/>
+          <br/>
+          <span>O: {Math.round(item.turnovers.poissonOverOdds)} ({Math.round(item.turnovers.poissonOverPercentage*100)}%)</span>
+          <br/>
+          <span>U: {Math.round(item.turnovers.poissonUnderOdds)} ({Math.round(item.turnovers.poissonUnderPercentage*100)}%)</span>
         </>
         :
         <span>Line N/A</span>
       }
     </TableCell>
-    <TableCell align='center' sx={{border: Math.abs(blocksEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
+    <TableCell align='center' sx={{border: blocksEdge >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
       {
         blocksValid ?
         <>
@@ -214,12 +239,17 @@ const SingleRow = ({item, injuryData}) => {
           <span style={{color: item.blocks.projection > item.blocks.line ? 'blue' : 'black'}}>O: {item.blocks.overOdds}</span>
           <br/>
           <span style={{color: item.blocks.projection < item.blocks.line ? 'blue' : 'black'}}>U: {item.blocks.underOdds}</span>
+          <br/>
+          <br/>
+          <span>O: {Math.round(item.blocks.poissonOverOdds)} ({Math.round(item.blocks.poissonOverPercentage*100)}%)</span>
+          <br/>
+          <span>U: {Math.round(item.blocks.poissonUnderOdds)} ({Math.round(item.blocks.poissonUnderPercentage*100)}%)</span>
         </>
         :
         <span>Line N/A</span>
       }
     </TableCell>
-    <TableCell align='center' sx={{border: Math.abs(stealsEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
+    <TableCell align='center' sx={{border: stealsEdge >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
       {
         stealsValid ?
         <>
@@ -234,12 +264,17 @@ const SingleRow = ({item, injuryData}) => {
           <span style={{color: item.steals.projection > item.steals.line ? 'blue' : 'black'}}>O: {item.steals.overOdds}</span>
           <br/>
           <span style={{color: item.steals.projection < item.steals.line ? 'blue' : 'black'}}>U: {item.steals.underOdds}</span>
+          <br/>
+          <br/>
+          <span>O: {Math.round(item.steals.poissonOverOdds)} ({Math.round(item.steals.poissonOverPercentage*100)}%)</span>
+          <br/>
+          <span>U: {Math.round(item.steals.poissonUnderOdds)} ({Math.round(item.steals.poissonUnderPercentage*100)}%)</span>
         </>
         :
         <span>Line N/A</span>
       }
     </TableCell>
-    <TableCell align='center' sx={{border: Math.abs(bsEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
+    <TableCell align='center' sx={{border: bsEdge >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
       {
         bsValid ?
         <>
@@ -254,12 +289,17 @@ const SingleRow = ({item, injuryData}) => {
           <span style={{color: item.blocksNsteals.projection > item.blocksNsteals.line ? 'blue' : 'black'}}>O: {item.blocksNsteals.overOdds}</span>
           <br/>
           <span style={{color: item.blocksNsteals.projection < item.blocksNsteals.line ? 'blue' : 'black'}}>U: {item.blocksNsteals.underOdds}</span>
+          <br/>
+          <br/>
+          <span>O: {Math.round(item.blocksNsteals.poissonOverOdds)} ({Math.round(item.blocksNsteals.poissonOverPercentage*100)}%)</span>
+          <br/>
+          <span>U: {Math.round(item.blocksNsteals.poissonUnderOdds)} ({Math.round(item.blocksNsteals.poissonUnderPercentage*100)}%)</span>
         </>
         :
         <span>Line N/A</span>
       }
     </TableCell>
-    <TableCell align='center' sx={{border: Math.abs(praEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
+    <TableCell align='center' sx={{border: praEdge >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
       {
         praValid ?
         <>
@@ -274,12 +314,17 @@ const SingleRow = ({item, injuryData}) => {
           <span style={{color: item.PRA.projection > item.PRA.line ? 'blue' : 'black'}}>O: {item.PRA.overOdds}</span>
           <br/>
           <span style={{color: item.PRA.projection < item.PRA.line ? 'blue' : 'black'}}>U: {item.PRA.underOdds}</span>
+          <br/>
+          <br/>
+          <span>O: {Math.round(item.PRA.poissonOverOdds)} ({Math.round(item.PRA.poissonOverPercentage*100)}%)</span>
+          <br/>
+          <span>U: {Math.round(item.PRA.poissonUnderOdds)} ({Math.round(item.PRA.poissonUnderPercentage*100)}%)</span>
         </>
         :
         <span>Line N/A</span>
       }
     </TableCell>
-    <TableCell align='center' sx={{border: Math.abs(prEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
+    <TableCell align='center' sx={{border: prEdge >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
       {
         prValid ?
         <>
@@ -294,12 +339,17 @@ const SingleRow = ({item, injuryData}) => {
           <span style={{color: item.PR.projection > item.PR.line ? 'blue' : 'black'}}>O: {item.PR.overOdds}</span>
           <br/>
           <span style={{color: item.PR.projection < item.PR.line ? 'blue' : 'black'}}>U: {item.PR.underOdds}</span>
+          <br/>
+          <br/>
+          <span>O: {Math.round(item.PR.poissonOverOdds)} ({Math.round(item.PR.poissonOverPercentage*100)}%)</span>
+          <br/>
+          <span>U: {Math.round(item.PR.poissonUnderOdds)} ({Math.round(item.PR.poissonUnderPercentage*100)}%)</span>
         </>
         :
         <span>Line N/A</span>
       }
     </TableCell>
-    <TableCell align='center' sx={{border: Math.abs(paEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
+    <TableCell align='center' sx={{border: paEdge >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
       {
         paValid ?
         <>
@@ -314,12 +364,17 @@ const SingleRow = ({item, injuryData}) => {
           <span style={{color: item.PA.projection > item.PA.line ? 'blue' : 'black'}}>O: {item.PA.overOdds}</span>
           <br/>
           <span style={{color: item.PA.projection < item.PA.line ? 'blue' : 'black'}}>U: {item.PA.underOdds}</span>
+          <br/>
+          <br/>
+          <span>O: {Math.round(item.PA.poissonOverOdds)} ({Math.round(item.PA.poissonOverPercentage*100)}%)</span>
+          <br/>
+          <span>U: {Math.round(item.PA.poissonUnderOdds)} ({Math.round(item.PA.poissonUnderPercentage*100)}%)</span>
         </>
         :
         <span>Line N/A</span>
       }
     </TableCell>
-    <TableCell align='center' sx={{border: Math.abs(arEdge) >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
+    <TableCell align='center' sx={{border: arEdge >= edgeThreshold ? '3px solid green': '', fontSize: 12}}>
       {
         arValid ?
         <>
@@ -334,6 +389,11 @@ const SingleRow = ({item, injuryData}) => {
           <span style={{color: item.AR.projection > item.AR.line ? 'blue' : 'black'}}>O: {item.AR.overOdds}</span>
           <br/>
           <span style={{color: item.AR.projection < item.AR.line ? 'blue' : 'black'}}>U: {item.AR.underOdds}</span>
+          <br/>
+          <br/>
+          <span>O: {Math.round(item.AR.poissonOverOdds)} ({Math.round(item.AR.poissonOverPercentage*100)}%)</span>
+          <br/>
+          <span>U: {Math.round(item.AR.poissonUnderOdds)} ({Math.round(item.AR.poissonUnderPercentage*100)}%)</span>
         </>
         :
         <span>Line N/A</span>
