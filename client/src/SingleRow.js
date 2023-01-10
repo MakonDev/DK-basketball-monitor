@@ -6,9 +6,8 @@ import {
   Avatar
 } from '@mui/material'
 
-const SingleRow = ({item, injuryData}) => {
+const SingleRow = ({item, injuryData, edgeThreshold}) => {
 
-  const edgeThreshold = 10
   const pointsValid = item.points.line !== -1
   const assistsValid = item.assists.line !== -1
   const threesValid = item.threes.line !== -1

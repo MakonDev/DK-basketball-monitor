@@ -20,6 +20,7 @@ const MainContainer = () => {
   const [data, setData] = useState([])
   const [injuryData, setInjuryData] = useState([])
   const [selectedTeam, setSelectedTeam] = useState("")
+  const [edgeNumber, setEdgeNumber] = useState(10)
 
   useEffect(() => {
     const fetchTransactionInfo = async () => {
@@ -51,6 +52,10 @@ const MainContainer = () => {
 
   const handleChange = (event, field) => {
     setSelectedTeam(event.target.value)
+  }
+
+  const handleChangeEdge = (event, field) => {
+    setEdgeNumber(event.target.value)
   }
 
   const teamOptions = data ? data.map((player) => {
@@ -90,6 +95,38 @@ const MainContainer = () => {
                 </Select>
               </FormControl>
             </Grid>
+            <Grid item xs={6} sx={{marginLeft: 'auto', marginRight: 'auto', width: '75%'}}>
+            <FormControl sx={{marginLeft: '20px', marginRight: '20px', marginTop: '20px'}} fullWidth disabled={data.length === 0}>
+                <InputLabel id="edge-select-label">Edge</InputLabel>
+                <Select
+                  labelId="edge-select-label"
+                  id="edge-select"
+                  value={edgeNumber}
+                  label="Edge"
+                  name="edge"
+                  onChange={handleChangeEdge}
+                >
+                  <MenuItem key={5} value={5}>
+                    5
+                  </MenuItem>
+                  <MenuItem key={10} value={10}>
+                    10
+                  </MenuItem>
+                  <MenuItem key={15} value={15}>
+                    15
+                  </MenuItem>
+                  <MenuItem key={20} value={20}>
+                    20
+                  </MenuItem>
+                  <MenuItem key={25} value={25}>
+                    25
+                  </MenuItem>
+                  <MenuItem key={30} value={30}>
+                    30
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
             <Grid item xs={12}>
               <TableContainer sx={{overflow: 'initial', backgroundColor: '#f5f5f5', marginBottom: '15px'}} component={Paper}>
                 <Table stickyHeader sx={{height: 'max-content'}} size="small" aria-label="a dense table">
@@ -120,7 +157,7 @@ const MainContainer = () => {
                       return player.team1 === selectedTeam || player.team2 === selectedTeam
                     }
                   }).map((item) => (
-                    <SingleRow key={item.player} item={item} injuryData={injuryData}/>
+                    <SingleRow key={item.player} item={item} injuryData={injuryData} edgeThreshold={edgeNumber}/>
                   ))}
                 </TableBody> 
                 </Table>
